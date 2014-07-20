@@ -12,19 +12,21 @@ BUILD_DIR=$1
 CACHE_DIR=$2
 
 # s3 packages
-NGINX_PACKAGE="http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz -o nginx.tgz"
+NGINX_PACKAGE="http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz"
+tar xzf nginx.tgz
 
 # vendor directories
 VENDORED_NGINX=$(mktemp -d -t nginx.XXXXXX)
 
 # download and upack packages
 echo "-----> Fetching nginx binaries"
-curl $NGINX_PACKAGE -s -o - | tar xzf - -C $VENDORED_NGINX
+curl http://nginx.org/download/nginx-${nginx_version}.tar.gz -o nginx.tgz
+curl nginx.tgz -s -o - | tar xzf - -C $VENDORED_NGINX
 
 # vendor nginx into the slug
 echo "-----> Vendoring nginx $NGINX_VERSION"
 mkdir -p "$BUILD_DIR/bin"
-cp "$VENDORED_NGINX/sbin/nginx" "$BUILD_DIR/bin/nginx"
+cp "$VENDORED_NGINX-$NGINX_VERSION/sbin/nginx" "$BUILD_DIR/bin/nginx"
 
 # build a startup script
 cat <<EOF >"$BUILD_DIR/bin/start_nginx"
