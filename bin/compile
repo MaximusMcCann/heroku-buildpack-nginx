@@ -4,31 +4,22 @@
 set -e
 
 # config
-NGINX_VERSION="1.7.3"
-PCRE_VERSION="8.35"
-S3_BUCKET="essh-heroku-buildpack-nginx"
+NGINX_VERSION='1.5.9'
+S3_BUCKET='pirateking'
 
 # parse and derive params
 BUILD_DIR=$1
 CACHE_DIR=$2
 
 # s3 packages
-NGINX_PACKAGE="http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz"
+NGINX_PACKAGE="http://${S3_BUCKET}.s3.amazonaws.com/nginx-${NGINX_VERSION}.tgz"
 
 # vendor directories
 VENDORED_NGINX=$(mktemp -d -t nginx.XXXXXX)
-echo "Vendored Nginx: $VENDORED_NGINX"
 
 # download and upack packages
 echo "-----> Fetching nginx binaries"
-curl $NGINX_PACKAGE -s -o - | tar zxvf - -C $VENDORED_NGINX
-
-curl ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-${PCRE_VERSION}.tar.gz -o pcre.tgz
-tar xzf pcre.tgz
-
-# build and package nginx for heroku
-vulcan build -v -n nginx -o $VENDORED_NGINX/nginx-${NGINX_VERSION}.tgz -c "cd nginx-${NGINX_VERSION} && ./configure --prefix=/app/vendor/nginx --with-pcre=../pcre-${PCRE_VERSION} --with-http_stub_status_module --with-http_gzip_static_module --with-http_realip_module && make install"
-
+curl $NGINX_PACKAGE -s -o - | tar xzf - -C $VENDORED_NGINX
 
 # vendor nginx into the slug
 echo "-----> Vendoring nginx $NGINX_VERSION"
@@ -42,6 +33,7 @@ erb conf/nginx.conf.erb > conf/nginx.conf
 mkdir -p logs
 touch logs/access.log logs/error.log
 (tail -qF -n 0 --pid=\$\$ logs/*.log &)
+(vendor/node/bin/node &)
 exec bin/nginx -p .
 EOF
 chmod +x "$BUILD_DIR/bin/start_nginx"
