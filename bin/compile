@@ -24,7 +24,7 @@ curl $NGINX_PACKAGE -s -o - | tar zxvf - -C $VENDORED_NGINX
 # vendor nginx into the slug
 echo "-----> Vendoring nginx $NGINX_VERSION"
 mkdir -p "$BUILD_DIR/bin"
-cp "$VENDORED_NGINX-$NGINX_VERSION/sbin/nginx" "$BUILD_DIR/bin/nginx"
+cp "$VENDORED_NGINX/sbin/nginx" "$BUILD_DIR/bin/nginx"
 
 # build a startup script
 cat <<EOF >"$BUILD_DIR/bin/start_nginx"
