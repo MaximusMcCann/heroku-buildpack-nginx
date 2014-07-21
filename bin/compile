@@ -29,9 +29,9 @@ cp "$VENDORED_NGINX/sbin/nginx" "$BUILD_DIR/bin/nginx"
 # build a startup script
 cat <<EOF >"$BUILD_DIR/bin/start_nginx"
 #!/usr/bin/env bash
-psmgr=/tmp/nginx-buildpack-wait
-rm -f $psmgr
-mkfifo $psmgr
+# psmgr=/tmp/nginx-buildpack-wait
+# rm -f $psmgr
+# mkfifo $psmgr
 #Evaluate config to get $PORT
 erb conf/nginx.conf.erb > conf/nginx.conf
 
