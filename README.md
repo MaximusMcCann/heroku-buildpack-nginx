@@ -2,7 +2,14 @@ Heroku buildpack: nginx
 =======================
 
 This is a [Heroku buildpack](http://devcenter.heroku.com/articles/buildpack)
-for nginx.
+for nginx intended to be used in tandem with the node.js build pack.
+
+Use [heroku-buildpack-multi](https://github.com/ddollar/heroku-buildpack-multi). Create a .buildpacks file in the root directory and include these lines:
+```
+https://github.com/mccannmax/heroku-buildpack-nginx.git
+https://github.com/heroku/heroku-buildpack-nodejs.git
+```
+
 
 Usage
 -----
@@ -20,7 +27,7 @@ Example usage:
     index.html
 
 
-    $ heroku create --stack cedar --buildpack http://github.com/mccannmax/heroku-buildpack-nginx.git
+    $ heroku create --stack cedar --buildpack https://github.com/ddollar/heroku-buildpack-multi
     ...
 
     $ git push heroku master
@@ -32,11 +39,6 @@ Example usage:
     -----> Vendoring nginx 1.0.11
     ...
 
-Use [heroku-buildpack-multi](https://github.com/ddollar/heroku-buildpack-multi). Create a .buildpacks file in the root directory and include these lines:
-```
-https://github.com/mccannmax/heroku-buildpack-nginx.git
-https://github.com/heroku/heroku-buildpack-nodejs.git
-```
 
 The nginx buildpack will detect your app as nginx if it has the file `nginx.conf.erb` in the `conf` directory.  Copy and paste the conf folder from this repo into your apps base directory to start. You must define all `listen`
 directives as `listen <%= ENV['PORT'] %>;` and also include `daemon off;` in
@@ -67,7 +69,7 @@ app.listen(socket, function() {
 
 TODO: check if below still works
 
-Hacking //This is old, but should still work
+Hacking 
 -------
 
 To modify this buildpack, fork it on Github. Push up changes to your fork, then
