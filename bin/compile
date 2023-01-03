@@ -7,15 +7,17 @@
 set -e
 
 # config
-NGINX_VERSION='1.5.9'
-S3_BUCKET='pirateking'
+# NGINX_VERSION='1.5.9'
+NGINX_VERSION='1.6.3'
+# S3_BUCKET='pirateking'
 
 # parse and derive params
 BUILD_DIR=$1
 CACHE_DIR=$2
 
 # s3 packages
-NGINX_PACKAGE="http://${S3_BUCKET}.s3.amazonaws.com/nginx-${NGINX_VERSION}.tgz"
+# NGINX_PACKAGE="http://${S3_BUCKET}.s3.amazonaws.com/nginx-${NGINX_VERSION}.tgz"
+NGINX_PACKAGE="https://github.com/MaximusMcCann/heroku-buildpack-nginx/bin/nginx-1.6.3.tar.gz"
 
 # vendor directories
 VENDORED_NGINX=$(mktemp -d -t nginx.XXXXXX)

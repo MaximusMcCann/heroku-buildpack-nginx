@@ -27,7 +27,8 @@ Example usage:
     index.html
 
 
-    $ heroku create --stack cedar --buildpack https://github.com/ddollar/heroku-buildpack-multi
+    ### OLD DEPRECATED $ heroku create --stack cedar --buildpack https://github.com/ddollar/heroku-buildpack-multi
+    $ heroku create --stack cedar --buildpack https://bitbucket.org/cf-utilities/cf-buildpack-multi
     ...
 
     $ git push heroku master
