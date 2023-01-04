@@ -28,7 +28,7 @@ echo "-----> Fetching nginx binaries"
 # wget -qO - $NGINX_PACKAGE | tar -xzf - -C $VENDORED_NGINX
 # curl $NGINX_PACKAGE -s -o - | tar xzf - -C $VENDORED_NGINX
 curl $NGINX_PACKAGE -o ./$NGINX_FILE
-ls -a
+ls -al
 # tar --help
 tar xzf ./$NGINX_FILE -C $VENDORED_NGINX
 
