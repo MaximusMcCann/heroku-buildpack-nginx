@@ -27,7 +27,8 @@ echo "-----> Fetching nginx binaries"
 # wget -qO - $NGINX_PACKAGE | tar -xzf - -C $VENDORED_NGINX
 # curl $NGINX_PACKAGE -s -o - | tar xzf - -C $VENDORED_NGINX
 curl $NGINX_PACKAGE 
-echo `ls -a`
+pwd
+ls -a
 tar zxf nginx-1.6.3.tar.gz -C $VENDORED_NGINX
 
 # vendor nginx into the slug
