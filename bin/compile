@@ -27,9 +27,9 @@ VENDORED_NGINX=$(mktemp -d -t nginx.XXXXXX)
 echo "-----> Fetching nginx binaries"
 # wget -qO - $NGINX_PACKAGE | tar -xzf - -C $VENDORED_NGINX
 # curl $NGINX_PACKAGE -s -o - | tar xzf - -C $VENDORED_NGINX
-curl $NGINX_PACKAGE -o $NGINX_FILE
+curl $NGINX_PACKAGE -o ./$NGINX_FILE
 ls -a
-tar --help
+# tar --help
 tar -xzfv ./$NGINX_FILE -C $VENDORED_NGINX
 
 # vendor nginx into the slug
