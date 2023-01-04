@@ -4,7 +4,7 @@
 # Procfile example-> web: bin/start_nginx -f
 # Calls index.js after starting nginx
 
-set -e
+set -ex
 
 # config
 # NGINX_VERSION='1.5.9'
