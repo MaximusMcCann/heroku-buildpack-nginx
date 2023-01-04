@@ -18,7 +18,7 @@ CACHE_DIR=$2
 # s3 packages
 # NGINX_PACKAGE="http://${S3_BUCKET}.s3.amazonaws.com/nginx-${NGINX_VERSION}.tgz"
 NGINX_FILE="nginx-1.6.3.tar.gz"
-NGINX_PACKAGE="https://github.com/MaximusMcCann/heroku-buildpack-nginx/bin/nginx-1.6.3.tar.gz"
+NGINX_PACKAGE="https://github.com/MaximusMcCann/heroku-buildpack-nginx/blob/master/bin/${NGINX_FILE}"
 
 # vendor directories
 VENDORED_NGINX=$(mktemp -d -t nginx.XXXXXX)
