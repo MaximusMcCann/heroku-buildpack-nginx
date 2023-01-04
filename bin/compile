@@ -17,6 +17,7 @@ CACHE_DIR=$2
 
 # s3 packages
 # NGINX_PACKAGE="http://${S3_BUCKET}.s3.amazonaws.com/nginx-${NGINX_VERSION}.tgz"
+NGINX_FILE="nginx-1.6.3.tar.gz"
 NGINX_PACKAGE="https://github.com/MaximusMcCann/heroku-buildpack-nginx/bin/nginx-1.6.3.tar.gz"
 
 # vendor directories
@@ -26,10 +27,9 @@ VENDORED_NGINX=$(mktemp -d -t nginx.XXXXXX)
 echo "-----> Fetching nginx binaries"
 # wget -qO - $NGINX_PACKAGE | tar -xzf - -C $VENDORED_NGINX
 # curl $NGINX_PACKAGE -s -o - | tar xzf - -C $VENDORED_NGINX
-curl $NGINX_PACKAGE 
-pwd
+curl $NGINX_PACKAGE -o $NGINX_FILE
 ls -a
-tar zxf nginx-1.6.3.tar.gz -C $VENDORED_NGINX
+tar zxf $NGINX_FILE -C $VENDORED_NGINX
 
 # vendor nginx into the slug
 echo "-----> Vendoring nginx $NGINX_VERSION"
