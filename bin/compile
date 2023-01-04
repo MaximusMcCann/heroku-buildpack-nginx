@@ -30,7 +30,7 @@ echo "-----> Fetching nginx binaries"
 curl $NGINX_PACKAGE -o $NGINX_FILE
 ls -a
 tar --help
-tar xzf $NGINX_FILE -C $VENDORED_NGINX
+tar -xzfv $NGINX_FILE -C $VENDORED_NGINX
 
 # vendor nginx into the slug
 echo "-----> Vendoring nginx $NGINX_VERSION"
