@@ -1,13 +1,12 @@
 #!/usr/bin/env bash
-# bin/compile <build-dir> <cache-dir>
 
 # Procfile example-> web: bin/start_nginx -f
 # Calls index.js after starting nginx
 
+set -e
 
-
-
-set -ex
+# Show all commands
+#set -x
 
 mkdir -p "$1/bin/"
 cp "bin/nginx-cedar-14" "$1/bin/nginx"
@@ -28,50 +27,3 @@ else
 	echo '-----> nginx-buildpack: Custom config found in app/conf.'
 fi
 exit 0
-
-
-
-# set -ex
-
-# # config
-# NGINX_VERSION='1.6.3'
-
-# # parse and derive params
-# BUILD_DIR=$1
-# CACHE_DIR=$2
-
-# # s3 packages
-# # NGINX_PACKAGE="http://${S3_BUCKET}.s3.amazonaws.com/nginx-${NGINX_VERSION}.tgz"
-# NGINX_FILE="nginx-1.6.3.tar.gz"
-# NGINX_PACKAGE="https://github.com/MaximusMcCann/heroku-buildpack-nginx/blob/master/bin/${NGINX_FILE}?raw=true"
-
-# # vendor directories
-# VENDORED_NGINX=$(mktemp -d -t nginx.XXXXXX)
-
-# # download and upack packages
-# echo "-----> Fetching nginx binaries"
-# curl -L $NGINX_PACKAGE -s -o - | tar xzf - -C $VENDORED_NGINX
-# # curl $NGINX_PACKAGE -o ./$NGINX_FILE
-# ls -al
-# # tar --help
-# # tar xzf ./$NGINX_FILE -C $VENDORED_NGINX
-
-# # vendor nginx into the slug
-# echo "-----> Vendoring nginx $NGINX_VERSION"
-# mkdir -p "$BUILD_DIR/bin"
-# cp "$VENDORED_NGINX/sbin/nginx" "$BUILD_DIR/bin/nginx"
-
-# # build a startup script
-# cat <<EOF >"$BUILD_DIR/bin/start_nginx"
-# #!/usr/bin/env bash
-# #Evaluate config to get $PORT
-# erb conf/nginx.conf.erb > conf/nginx.conf
-
-# mkdir -p logs
-# touch logs/access.log logs/error.log
-# (tail -qF -n 0 --pid=\$\$ logs/*.log &)
-# (vendor/node/bin/node index.js &)
-# exec bin/nginx -p .
-
-# EOF
-# chmod +x "$BUILD_DIR/bin/start_nginx"
